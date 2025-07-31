@@ -1,0 +1,123 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+
+/* Header styling */
+header {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 6px 6px -1px rgba(226, 219, 219, 0.1);
+}
+
+/* Center the navigation container */
+header > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+}
+
+/* Navigation container */
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+nav button:first-child {
+  margin-right: 1rem;
+}
+
+nav button:last-child {
+  margin-left: 1rem;
+}
+
+/* Create invisible center point */
+nav::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 100%;
+  pointer-events: none;
+}
+
+header h1 {
+  background: linear-gradient(45deg, #ffffff, #e2e8f0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+/* Navigation styling */
+nav button {
+  position: relative;
+  padding: 12px 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.8);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Hover effect */
+nav button:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Active state - visual indicator above text */
+nav button.active {
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+
+/* Button press effect */
+nav button:active {
+  transform: translateY(0);
+  transition: transform 0.1s ease;
+}
+
+/* Main content area */
+main {
+  min-height: calc(100vh - 64px);
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  header .flex {
+    flex-direction: column;
+    height: auto;
+    padding: 16px 0;
+    gap: 16px;
+  }
+  
+  nav {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  nav button {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+}
