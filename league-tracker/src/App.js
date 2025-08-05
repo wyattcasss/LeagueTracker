@@ -26,7 +26,7 @@ function App() {
       </header>
 
       <main>
-        {/* Content will go here */}
+        {}
       </main>
     </div>
   );
