@@ -3,18 +3,9 @@ body {
   margin: 0;
   position: relative;
   min-height: 100vh;
+  background: linear-gradient(135deg, #101010, #484848);
+  
 }
 
-/* Create an animated background using a fixed pseudo-element */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1; /* Place it behind the content */
-  background: linear-gradient(135deg, #101010, #484848);
-  background-size: 400% 400%;
-}
+
 

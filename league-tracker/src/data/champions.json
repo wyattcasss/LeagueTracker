@@ -3,161 +3,161 @@
     "id": 1,
     "imageUrl": "/Smolder.png",
     "title": "Smolder",
-    "description": "Block unwanted web crawlers...",
+    "description": "The Firebrand Whelp breathes fire and scales into late game dominance.",
     "category": "ADC"
   },
   {
     "id": 2,
     "imageUrl": "/Mel.png",
     "title": "Mel",
-    "description": "The Loose Cannon brings chaos...",
+    "description": "The Noxian councilor wields magic and political power in equal measure.",
     "category": "Mid"
   },
   {
-    "id": 1,
+    "id": 3,
     "imageUrl": "/Briar.png",
     "title": "Briar",
-    "description": "Block unwanted web crawlers...",
+    "description": "The Restrained Hunger tears through the jungle with brutal efficiency.",
     "category": "Jungle"
   },
-    {
-    "id": 1,
+  {
+    "id": 4,
     "imageUrl": "/Jhin.png",
     "title": "Jhin",
-    "description": "Block unwanted web crawlers...",
+    "description": "The Virtuoso creates deadly art with every precisely placed shot.",
     "category": "ADC"
   },
-    {
-    "id": 1,
+  {
+    "id": 5,
     "imageUrl": "/Akshan.png",
     "title": "Akshan",
-    "description": "Block unwanted web crawlers...",
+    "description": "The Rogue Sentinel swings into battle seeking justice and redemption.",
     "category": "ADC"
   },
-    {
-    "id": 1,
-    "imageUrl": "/Smolder.png",
-    "title": "Smolder",
-    "description": "Block unwanted web crawlers...",
+  {
+    "id": 6,
+    "imageUrl": "/Thresh.png",
+    "title": "Thresh",
+    "description": "The Chain Warden hooks enemies and drags them to their doom.",
+    "category": "Support"
+  },
+  {
+    "id": 7,
+    "imageUrl": "/Garen.png",
+    "title": "Garen",
+    "description": "The Might of Demacia spins his way to victory in the top lane.",
+    "category": "Top"
+  },
+  {
+    "id": 8,
+    "imageUrl": "/Yasuo.png",
+    "title": "Yasuo",
+    "description": "The Unforgiven dances through enemies with wind and steel.",
+    "category": "Mid"
+  },
+  {
+    "id": 9,
+    "imageUrl": "/Leona.png",
+    "title": "Leona",
+    "description": "The Radiant Dawn protects her allies with solar-powered shields.",
+    "category": "Support"
+  },
+  {
+    "id": 10,
+    "imageUrl": "/Graves.png",
+    "title": "Graves",
+    "description": "The Outlaw blasts his way through the jungle with explosive shells.",
+    "category": "Jungle"
+  },
+  {
+    "id": 11,
+    "imageUrl": "/Darius.png",
+    "title": "Darius",
+    "description": "The Hand of Noxus dominates the top lane with brutal executions.",
+    "category": "Top"
+  },
+  {
+    "id": 12,
+    "imageUrl": "/Jinx.png",
+    "title": "Jinx",
+    "description": "The Loose Cannon brings explosive chaos to every team fight.",
     "category": "ADC"
   },
-    {
-    "id": 1,
-    "imageUrl": "/Smolder.png",
-    "title": "Smolder",
-    "description": "Block unwanted web crawlers...",
+  {
+    "id": 13,
+    "imageUrl": "/Azir.png",
+    "title": "Azir",
+    "description": "The Emperor of the Sands commands his army from the mid lane.",
+    "category": "Mid"
+  },
+  {
+    "id": 14,
+    "imageUrl": "/Nautilus.png",
+    "title": "Nautilus",
+    "description": "The Titan of the Depths anchors the bot lane with crowd control.",
+    "category": "Support"
+  },
+  {
+    "id": 15,
+    "imageUrl": "/Elise.png",
+    "title": "Elise",
+    "description": "The Spider Queen weaves her web of death through the jungle.",
+    "category": "Jungle"
+  },
+  {
+    "id": 16,
+    "imageUrl": "/Fiora.png",
+    "title": "Fiora",
+    "description": "The Grand Duelist parries her way to victory in top lane duels.",
+    "category": "Top"
+  },
+  {
+    "id": 17,
+    "imageUrl": "/Kai'Sa.png",
+    "title": "Kai'Sa",
+    "description": "Daughter of the Void evolves and adapts to every threat.",
     "category": "ADC"
   },
-    {
-    "id": 1,
-    "imageUrl": "/Smolder.png",
-    "title": "Smolder",
-    "description": "Block unwanted web crawlers...",
+  {
+    "id": 18,
+    "imageUrl": "/Orianna.png",
+    "title": "Orianna",
+    "description": "The Lady of Clockwork commands her ball with mechanical precision.",
+    "category": "Mid"
+  },
+  {
+    "id": 19,
+    "imageUrl": "/Braum.png",
+    "title": "Braum",
+    "description": "The Heart of the Freljord shields his allies from all harm.",
+    "category": "Support"
+  },
+  {
+    "id": 20,
+    "imageUrl": "/Lee Sin.png",
+    "title": "Lee Sin",
+    "description": "The Blind Monk kicks his enemies across the jungle battlefield.",
+    "category": "Jungle"
+  },
+  {
+    "id": 21,
+    "imageUrl": "/Camille.png",
+    "title": "Camille",
+    "description": "The Steel Shadow slices through top lane opposition with precision.",
+    "category": "Top"
+  },
+  {
+    "id": 22,
+    "imageUrl": "/Ezreal.png",
+    "title": "Ezreal",
+    "description": "The Prodigal Explorer maps his enemies' destruction from range.",
     "category": "ADC"
   },
-    {
-    "id": 1,
-    "imageUrl": "/Smolder.png",
-    "title": "Smolder",
-    "description": "Block unwanted web crawlers...",
-    "category": "ADC"
-  },
-    {
-    "id": 1,
-    "imageUrl": "/Smolder.png",
-    "title": "Smolder",
-    "description": "Block unwanted web crawlers...",
-    "category": "ADC"
-  },
-    {
-    "id": 1,
-    "imageUrl": "/Smolder.png",
-    "title": "Smolder",
-    "description": "Block unwanted web crawlers...",
-    "category": "ADC"
-  },
-    {
-    "id": 1,
-    "imageUrl": "/Smolder.png",
-    "title": "Smolder",
-    "description": "Block unwanted web crawlers...",
-    "category": "ADC"
-  },
-    {
-    "id": 1,
-    "imageUrl": "/Smolder.png",
-    "title": "Smolder",
-    "description": "Block unwanted web crawlers...",
-    "category": "ADC"
-  },
-    {
-    "id": 1,
-    "imageUrl": "/Smolder.png",
-    "title": "Smolder",
-    "description": "Block unwanted web crawlers...",
-    "category": "ADC"
-  },
-    {
-    "id": 1,
-    "imageUrl": "/Smolder.png",
-    "title": "Smolder",
-    "description": "Block unwanted web crawlers...",
-    "category": "ADC"
-  },
-    {
-    "id": 1,
-    "imageUrl": "/Smolder.png",
-    "title": "Smolder",
-    "description": "Block unwanted web crawlers...",
-    "category": "ADC"
-  },
-    {
-    "id": 1,
-    "imageUrl": "/Smolder.png",
-    "title": "Smolder",
-    "description": "Block unwanted web crawlers...",
-    "category": "ADC"
-  },
-    {
-    "id": 1,
-    "imageUrl": "/Smolder.png",
-    "title": "Smolder",
-    "description": "Block unwanted web crawlers...",
-    "category": "ADC"
-  },
-    {
-    "id": 1,
-    "imageUrl": "/Smolder.png",
-    "title": "Smolder",
-    "description": "Block unwanted web crawlers...",
-    "category": "ADC"
-  },
-    {
-    "id": 1,
-    "imageUrl": "/Smolder.png",
-    "title": "Smolder",
-    "description": "Block unwanted web crawlers...",
-    "category": "ADC"
-  },
-    {
-    "id": 1,
-    "imageUrl": "/Smolder.png",
-    "title": "Smolder",
-    "description": "Block unwanted web crawlers...",
-    "category": "ADC"
-  },
-    {
-    "id": 1,
-    "imageUrl": "/Smolder.png",
-    "title": "Smolder",
-    "description": "Block unwanted web crawlers...",
-    "category": "ADC"
-  },
-    {
-    "id": 1,
-    "imageUrl": "/Smolder.png",
-    "title": "Smolder",
-    "description": "Block unwanted web crawlers...",
-    "category": "ADC"
+  {
+    "id": 23,
+    "imageUrl": "/Zed.png",
+    "title": "Zed",
+    "description": "The Master of Shadows eliminates targets from the mid lane.",
+    "category": "Mid"
   }
 ]
