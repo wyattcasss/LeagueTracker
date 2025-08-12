@@ -3,6 +3,7 @@ import './App.css';
 import championData from './data/champions.json';
 import ChampionCard from './components/champCard.js';
 import SearchSidebar from './components/SearchSidebar.js';
+import PlayerTracker from './components/PlayerTracker.js';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('Champions');
@@ -106,11 +107,8 @@ function App() {
         )}
 
         {currentPage === 'Tracker' && (
-          <main>
-            <div style={{ textAlign: 'center', padding: '4rem 0', color: 'white' }}>
-              <h2>Tracker Page</h2>
-              <p>Tracker functionality coming soon...</p>
-            </div>
+          <main className="champions-main">
+            <PlayerTracker />
           </main>
         )}
       </div>

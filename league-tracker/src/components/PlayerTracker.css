@@ -1,0 +1,475 @@
+/* PlayerTracker.css - Styles only for the tracker component */
+
+/* Player Tracker Styles - Scoped to avoid conflicts */
+.player-tracker {
+  width: 100%;
+}
+
+.player-tracker .tracker-search-section {
+  background: linear-gradient(145deg, rgba(28, 28, 30, 0.9), rgba(44, 44, 46, 0.9));
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.player-tracker .tracker-search-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.player-tracker .tracker-search-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.player-tracker .tracker-search-input {
+  width: 100%;
+  padding: 16px 16px 16px 45px;
+  font-size: 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  font-family: 'Rajdhani', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.player-tracker .tracker-search-input:focus {
+  outline: none;
+  border-color: #e7a808;
+  box-shadow: 0 0 20px rgba(231, 168, 8, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.player-tracker .tracker-search-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.player-tracker .search-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.player-tracker .search-input-container svg {
+  position: absolute;
+  left: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  z-index: 1;
+}
+
+.player-tracker .tracker-button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.player-tracker .search-btn, 
+.player-tracker .update-btn {
+  padding: 16px 32px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Rajdhani', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 160px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.player-tracker .search-btn {
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
+  color: white;
+}
+
+.player-tracker .search-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+.player-tracker .update-btn {
+  background: linear-gradient(135deg, #e7a808, #d5ca69);
+  color: white;
+}
+
+.player-tracker .update-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(231, 168, 8, 0.4);
+}
+
+.player-tracker .search-btn:disabled, 
+.player-tracker .update-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.player-tracker .error-message {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 500;
+  margin-top: 1rem;
+}
+
+/* Player Data Container */
+.player-tracker .player-data-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.player-tracker .player-overview-card {
+  background: linear-gradient(145deg, rgba(28, 28, 30, 0.9), rgba(44, 44, 46, 0.9));
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.player-tracker .player-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.player-tracker .player-icon {
+  position: relative;
+}
+
+.player-tracker .player-icon img {
+  width: 100px;
+  height: 100px;
+  border-radius: 16px;
+  border: 3px solid #e7a808;
+  box-shadow: 0 4px 20px rgba(231, 168, 8, 0.3);
+}
+
+.player-tracker .player-info {
+  flex: 1;
+}
+
+.player-tracker .player-name {
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  font-family: 'Orbitron', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: linear-gradient(45deg, #ffffff, #e7a808);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.player-tracker .player-level {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem 0;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.player-tracker .player-rank {
+  color: #e7a808;
+  font-weight: 600;
+  font-size: 1.3rem;
+  margin: 0 0 1rem 0;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.player-tracker .last-updated {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  font-style: italic;
+  margin: 0;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+/* Stats Grid */
+.player-tracker .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+}
+
+.player-tracker .ranked-stats-card, 
+.player-tracker .recent-matches-card {
+  background: linear-gradient(145deg, rgba(28, 28, 30, 0.9), rgba(44, 44, 46, 0.9));
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.player-tracker .ranked-stats-card h4, 
+.player-tracker .recent-matches-card h4 {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem 0;
+  font-family: 'Orbitron', monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #e7a808;
+  padding-bottom: 0.5rem;
+}
+
+/* Ranked Stats */
+.player-tracker .rank-entries {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.player-tracker .rank-entry {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid #e7a808;
+  transition: all 0.3s ease;
+}
+
+.player-tracker .rank-entry:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+.player-tracker .rank-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.player-tracker .rank-header h5 {
+  color: #e7a808;
+  font-size: 1.2rem;
+  margin: 0;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+}
+
+.player-tracker .rank-tier {
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  font-family: 'Orbitron', monospace;
+  text-transform: uppercase;
+}
+
+.player-tracker .rank-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.player-tracker .stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.player-tracker .stat-label {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.player-tracker .stat-value {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  font-family: 'Orbitron', monospace;
+}
+
+/* Recent Matches */
+.player-tracker .matches-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.player-tracker .match-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 4px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.player-tracker .match-card.win {
+  border-left-color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.player-tracker .match-card.loss {
+  border-left-color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.player-tracker .match-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.player-tracker .match-result {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.player-tracker .result-indicator {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  font-family: 'Orbitron', monospace;
+}
+
+.player-tracker .result-indicator.win {
+  background: #10b981;
+  color: white;
+}
+
+.player-tracker .result-indicator.loss {
+  background: #ef4444;
+  color: white;
+}
+
+.player-tracker .match-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.player-tracker .champion-name {
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  font-family: 'Orbitron', monospace;
+}
+
+.player-tracker .game-mode {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.player-tracker .match-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.player-tracker .kda-stat, 
+.player-tracker .damage-stat, 
+.player-tracker .gold-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.player-tracker .kda-label, 
+.player-tracker .damage-label, 
+.player-tracker .gold-label {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.player-tracker .kda-value {
+  color: white;
+  font-weight: 600;
+  font-family: 'Orbitron', monospace;
+}
+
+.player-tracker .damage-value, 
+.player-tracker .gold-value {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.player-tracker .match-duration {
+  color: rgba(255, 255, 255, 0.6);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .player-tracker .tracker-button-group {
+    flex-direction: column;
+  }
+  
+  .player-tracker .search-btn, 
+  .player-tracker .update-btn {
+    min-width: auto;
+  }
+  
+  .player-tracker .player-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .player-tracker .player-icon {
+    align-self: center;
+  }
+  
+  .player-tracker .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .player-tracker .rank-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .player-tracker .match-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .player-tracker .match-result {
+    width: 100%;
+  }
+  
+  .player-tracker .match-stats {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}
