@@ -1,234 +1,396 @@
 import React, { useState } from 'react';
-import './PlayerTracker.css';
 
 const PlayerTracker = () => {
-  const [summonerName, setSummonerName] = useState('');
+  const [playerName, setPlayerName] = useState('');
   const [playerData, setPlayerData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // Replace this with your actual API Gateway URL after deployment
-  const API_BASE_URL = 'https://f793pbt9w8.execute-api.us-east-1.amazonaws.com/prod';
+  // ⚠️ REPLACE WITH YOUR ACTUAL API GATEWAY URL
+  const API_BASE_URL = 'https://f793pbt9w8.execute-api.us-east-1.amazonaws.com/Prod';
 
   const searchPlayer = async () => {
-    if (!summonerName.trim()) {
-      setError('Please enter a summoner name');
-      return;
-    }
-
+    if (!playerName.trim()) return;
+    
     setLoading(true);
     setError('');
-
+    
     try {
-      // First try to get existing data
-      const response = await fetch(`${API_BASE_URL}/player/${encodeURIComponent(summonerName)}`);
+      console.log('Searching for player:', playerName);
       
-      if (response.ok) {
-        const data = await response.json();
-        setPlayerData(data);
-      } else {
-        const errorData = await response.json();
-        setError(errorData.error || 'Player not found in database');
-        setPlayerData(null);
+      const response = await fetch(`${API_BASE_URL}/player/${encodeURIComponent(playerName)}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      console.log('Search response status:', response.status);
+      
+      const data = await response.json();
+      console.log('Search response data:', data);
+      
+      if (!response.ok) {
+        throw new Error(data.error || `HTTP error! status: ${response.status}`);
       }
+      
+      setPlayerData(data);
     } catch (err) {
-      setError('Failed to fetch player data');
-      console.error('Error:', err);
+      console.error('Error searching player:', err);
+      setError(err.message || 'Failed to search player data');
     } finally {
       setLoading(false);
     }
   };
 
   const updatePlayerData = async () => {
-    if (!summonerName.trim()) {
-      setError('Please enter a summoner name');
-      return;
-    }
-
+    if (!playerName.trim()) return;
+    
     setLoading(true);
     setError('');
-
+    
     try {
-      const response = await fetch(`${API_BASE_URL}/player`, {
+      console.log('Updating player data:', playerName);
+      
+      const response = await fetch(`${API_BASE_URL}/player/update`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          summonerName: summonerName.trim()
-        })
+        body: JSON.stringify({ playerName }),
       });
-
-      if (response.ok) {
-        const data = await response.json();
-        setPlayerData(data);
-      } else {
-        const errorData = await response.json();
-        setError(errorData.error || 'Failed to update player data');
+      
+      console.log('Update response status:', response.status);
+      
+      const data = await response.json();
+      console.log('Update response data:', data);
+      
+      if (!response.ok) {
+        throw new Error(data.error || `HTTP error! status: ${response.status}`);
       }
+      
+      setPlayerData(data);
     } catch (err) {
-      setError('Failed to update player data');
-      console.error('Error:', err);
+      console.error('Error updating player data:', err);
+      setError(err.message || 'Failed to update player data');
     } finally {
       setLoading(false);
     }
   };
 
-  const getRankString = (rankedData) => {
-    if (!rankedData || rankedData.length === 0) return 'Unranked';
+  const formatRank = (rankedStats) => {
+    if (!rankedStats || rankedStats.length === 0) {
+      return 'Unranked';
+    }
     
-    const soloQueue = rankedData.find(entry => entry.queueType === 'RANKED_SOLO_5x5');
+    const soloQueue = rankedStats.find(r => r.queueType === 'RANKED_SOLO_5x5');
     if (soloQueue) {
       return `${soloQueue.tier} ${soloQueue.rank} (${soloQueue.leaguePoints} LP)`;
     }
+    
     return 'Unranked';
   };
 
-  const formatKDA = (kills, deaths, assists) => {
-    const kda = deaths === 0 ? (kills + assists) : ((kills + assists) / deaths).toFixed(2);
-    return `${kills}/${deaths}/${assists} (${kda} KDA)`;
+  const formatWinRate = (rankedStats) => {
+    if (!rankedStats || rankedStats.length === 0) {
+      return 'N/A';
+    }
+    
+    const soloQueue = rankedStats.find(r => r.queueType === 'RANKED_SOLO_5x5');
+    if (soloQueue) {
+      const winRate = ((soloQueue.wins / (soloQueue.wins + soloQueue.losses)) * 100).toFixed(1);
+      return `${winRate}% (${soloQueue.wins}W ${soloQueue.losses}L)`;
+    }
+    
+    return 'N/A';
   };
 
-  const SearchIcon = () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="11" cy="11" r="8"></circle>
-      <path d="m21 21-4.35-4.35"></path>
-    </svg>
-  );
-
   return (
-    <div className="player-tracker">
-      <div className="champions-header">
-        <h2>Player Tracker</h2>
-        <p className="search-info">Search for League of Legends players and view their stats</p>
-      </div>
-
-      <div className="tracker-search-section">
-        <div className="tracker-search-container">
-          <div className="tracker-search-input-group">
-            <div className="search-input-container">
-              <SearchIcon />
-              <input
-                type="text"
-                placeholder="Enter summoner name (e.g., Faker, Doublelift)..."
-                value={summonerName}
-                onChange={(e) => setSummonerName(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && searchPlayer()}
-                disabled={loading}
-                className="tracker-search-input"
-              />
-            </div>
-            <div className="tracker-button-group">
-              <button onClick={searchPlayer} disabled={loading} className="search-btn">
-                {loading ? 'Loading...' : 'Search'}
-              </button>
-              <button onClick={updatePlayerData} disabled={loading} className="update-btn">
-                {loading ? 'Updating...' : 'Update from API'}
-              </button>
-            </div>
-          </div>
+    <div style={{ 
+      padding: '2rem', 
+      maxWidth: '1200px', 
+      margin: '0 auto',
+      color: 'white',
+      background: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)',
+      minHeight: '100vh',
+      fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
+    }}>
+      <div style={{
+        background: 'rgba(28, 28, 30, 0.9)',
+        borderRadius: '16px',
+        padding: '2rem',
+        backdropFilter: 'blur(10px)',
+        border: '1px solid rgba(255, 255, 255, 0.1)',
+        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3)'
+      }}>
+        <h1 style={{ 
+          marginBottom: '1rem', 
+          textAlign: 'center',
+          fontSize: '2.5rem',
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          backgroundClip: 'text',
+          WebkitBackgroundClip: 'text',
+          color: 'transparent',
+          fontWeight: '700'
+        }}>
+          League of Legends Player Tracker
+        </h1>
+        
+        <p style={{ 
+          textAlign: 'center', 
+          marginBottom: '2rem', 
+          color: 'rgba(255, 255, 255, 0.7)',
+          fontSize: '1.1rem'
+        }}>
+          Search for League of Legends players using their Riot ID
+        </p>
+        
+        <div style={{ 
+          display: 'flex', 
+          gap: '1rem', 
+          marginBottom: '2rem',
+          flexWrap: 'wrap',
+          justifyContent: 'center'
+        }}>
+          <input
+            type="text"
+            placeholder="Enter Riot ID (e.g., Faker#KR1)"
+            value={playerName}
+            onChange={(e) => setPlayerName(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && !loading && searchPlayer()}
+            style={{
+              flex: 1,
+              minWidth: '300px',
+              maxWidth: '400px',
+              padding: '14px 18px',
+              background: 'rgba(255, 255, 255, 0.1)',
+              border: '2px solid rgba(255, 255, 255, 0.2)',
+              borderRadius: '10px',
+              color: 'white',
+              fontSize: '16px',
+              outline: 'none',
+              transition: 'all 0.3s ease',
+            }}
+          />
+          
+          <button
+            onClick={searchPlayer}
+            disabled={loading || !playerName.trim()}
+            style={{
+              padding: '14px 28px',
+              background: loading || !playerName.trim() 
+                ? 'rgba(102, 126, 234, 0.5)' 
+                : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              color: 'white',
+              border: 'none',
+              borderRadius: '10px',
+              cursor: loading || !playerName.trim() ? 'not-allowed' : 'pointer',
+              fontWeight: '600',
+              fontSize: '16px',
+              transition: 'all 0.3s ease',
+              boxShadow: loading || !playerName.trim() ? 'none' : '0 4px 15px rgba(102, 126, 234, 0.4)'
+            }}
+          >
+            {loading ? 'SEARCHING...' : 'SEARCH'}
+          </button>
+          
+          <button
+            onClick={updatePlayerData}
+            disabled={loading || !playerName.trim()}
+            style={{
+              padding: '14px 28px',
+              background: loading || !playerName.trim() 
+                ? 'rgba(231, 168, 8, 0.5)' 
+                : 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+              color: 'white',
+              border: 'none',
+              borderRadius: '10px',
+              cursor: loading || !playerName.trim() ? 'not-allowed' : 'pointer',
+              fontWeight: '600',
+              fontSize: '16px',
+              transition: 'all 0.3s ease',
+              boxShadow: loading || !playerName.trim() ? 'none' : '0 4px 15px rgba(245, 87, 108, 0.4)'
+            }}
+          >
+            {loading ? 'UPDATING...' : 'UPDATE FROM API'}
+          </button>
         </div>
-        {error && <div className="error-message">{error}</div>}
-      </div>
 
-      {playerData && (
-        <div className="player-data-container">
-          <div className="player-overview-card">
-            <div className="player-header">
-              <div className="player-icon">
-                <img 
-                  src={`https://ddragon.leagueoflegends.com/cdn/14.23.1/img/profileicon/${playerData.profileIconId}.png`}
-                  alt="Profile Icon"
-                />
-              </div>
-              <div className="player-info">
-                <h3 className="player-name">{playerData.summonerName}</h3>
-                <p className="player-level">Level {playerData.summonerLevel}</p>
-                <p className="player-rank">{getRankString(playerData.rankedStats)}</p>
-                <p className="last-updated">
-                  Last updated: {new Date(playerData.lastUpdated).toLocaleString()}
-                </p>
-              </div>
-            </div>
+        {error && (
+          <div style={{
+            background: 'rgba(239, 68, 68, 0.2)',
+            border: '2px solid rgba(239, 68, 68, 0.3)',
+            color: '#fca5a5',
+            padding: '16px',
+            borderRadius: '12px',
+            marginBottom: '2rem',
+            textAlign: 'center',
+            fontSize: '16px'
+          }}>
+            ⚠️ {error}
           </div>
+        )}
 
-          <div className="stats-grid">
-            {playerData.rankedStats && playerData.rankedStats.length > 0 && (
-              <div className="ranked-stats-card">
-                <h4>Ranked Statistics</h4>
-                <div className="rank-entries">
-                  {playerData.rankedStats.map((rank, index) => (
-                    <div key={index} className="rank-entry">
-                      <div className="rank-header">
-                        <h5>{rank.queueType === 'RANKED_SOLO_5x5' ? 'Solo/Duo' : 'Flex Queue'}</h5>
-                        <span className="rank-tier">{rank.tier} {rank.rank}</span>
-                      </div>
-                      <div className="rank-stats">
-                        <div className="stat-item">
-                          <span className="stat-label">LP</span>
-                          <span className="stat-value">{rank.leaguePoints}</span>
-                        </div>
-                        <div className="stat-item">
-                          <span className="stat-label">Wins</span>
-                          <span className="stat-value">{rank.wins}</span>
-                        </div>
-                        <div className="stat-item">
-                          <span className="stat-label">Losses</span>
-                          <span className="stat-value">{rank.losses}</span>
-                        </div>
-                        <div className="stat-item">
-                          <span className="stat-label">Win Rate</span>
-                          <span className="stat-value">
-                            {Math.round((rank.wins / (rank.wins + rank.losses)) * 100)}%
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+        {playerData && (
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.05)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            borderRadius: '16px',
+            padding: '2rem',
+            backdropFilter: 'blur(10px)'
+          }}>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '2rem',
+              marginBottom: '2rem'
+            }}>
+              {/* Player Info Card */}
+              <div style={{
+                background: 'rgba(255, 255, 255, 0.1)',
+                padding: '1.5rem',
+                borderRadius: '12px',
+                border: '1px solid rgba(255, 255, 255, 0.1)'
+              }}>
+                <h3 style={{ 
+                  marginBottom: '1rem', 
+                  color: '#667eea', 
+                  fontSize: '1.3rem',
+                  fontWeight: '600'
+                }}>
+                  Player Information
+                </h3>
+                <div style={{ color: '#e2e8f0', lineHeight: '1.8' }}>
+                  <p><strong>Riot ID:</strong> {playerData.riotId}</p>
+                  <p><strong>Summoner Level:</strong> {playerData.summonerLevel}</p>
+                  <p><strong>Last Updated:</strong> {new Date(playerData.lastUpdated).toLocaleString()}</p>
                 </div>
               </div>
-            )}
 
+              {/* Ranked Stats Card */}
+              <div style={{
+                background: 'rgba(255, 255, 255, 0.1)',
+                padding: '1.5rem',
+                borderRadius: '12px',
+                border: '1px solid rgba(255, 255, 255, 0.1)'
+              }}>
+                <h3 style={{ 
+                  marginBottom: '1rem', 
+                  color: '#f093fb', 
+                  fontSize: '1.3rem',
+                  fontWeight: '600'
+                }}>
+                  Ranked Statistics
+                </h3>
+                <div style={{ color: '#e2e8f0', lineHeight: '1.8' }}>
+                  <p><strong>Rank:</strong> {formatRank(playerData.rankedStats)}</p>
+                  <p><strong>Win Rate:</strong> {formatWinRate(playerData.rankedStats)}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Recent Matches */}
             {playerData.recentMatches && playerData.recentMatches.length > 0 && (
-              <div className="recent-matches-card">
-                <h4>Recent Matches</h4>
-                <div className="matches-list">
+              <div style={{
+                background: 'rgba(255, 255, 255, 0.1)',
+                padding: '1.5rem',
+                borderRadius: '12px',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                marginBottom: '2rem'
+              }}>
+                <h3 style={{ 
+                  marginBottom: '1rem', 
+                  color: '#4ade80', 
+                  fontSize: '1.3rem',
+                  fontWeight: '600'
+                }}>
+                  Recent Matches
+                </h3>
+                <div style={{ display: 'grid', gap: '1rem' }}>
                   {playerData.recentMatches.map((match, index) => (
-                    <div key={index} className={`match-card ${match.win ? 'win' : 'loss'}`}>
-                      <div className="match-result">
-                        <div className={`result-indicator ${match.win ? 'win' : 'loss'}`}>
-                          {match.win ? 'W' : 'L'}
+                    <div key={index} style={{
+                      background: match.win ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+                      border: match.win ? '1px solid rgba(34, 197, 94, 0.3)' : '1px solid rgba(239, 68, 68, 0.3)',
+                      padding: '1rem',
+                      borderRadius: '8px',
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+                      gap: '1rem',
+                      alignItems: 'center'
+                    }}>
+                      <div>
+                        <div style={{ fontWeight: '600', color: match.win ? '#22c55e' : '#ef4444' }}>
+                          {match.win ? 'VICTORY' : 'DEFEAT'}
                         </div>
-                        <div className="match-info">
-                          <div className="champion-name">{match.championName}</div>
-                          <div className="game-mode">{match.gameMode}</div>
-                        </div>
-                      </div>
-                      <div className="match-stats">
-                        <div className="kda-stat">
-                          <span className="kda-label">KDA</span>
-                          <span className="kda-value">{formatKDA(match.kills, match.deaths, match.assists)}</span>
-                        </div>
-                        <div className="damage-stat">
-                          <span className="damage-label">Damage</span>
-                          <span className="damage-value">{match.totalDamageDealt?.toLocaleString()}</span>
-                        </div>
-                        <div className="gold-stat">
-                          <span className="gold-label">Gold</span>
-                          <span className="gold-value">{match.goldEarned?.toLocaleString()}</span>
+                        <div style={{ color: '#94a3b8', fontSize: '0.9rem' }}>
+                          {match.championName}
                         </div>
                       </div>
-                      <div className="match-duration">
-                        {Math.floor(match.gameDuration / 60)}m {match.gameDuration % 60}s
+                      <div style={{ color: '#e2e8f0' }}>
+                        <div>{match.kills}/{match.deaths}/{match.assists}</div>
+                        <div style={{ fontSize: '0.9rem', color: '#94a3b8' }}>KDA</div>
+                      </div>
+                      <div style={{ color: '#e2e8f0' }}>
+                        <div>{match.gameMode}</div>
+                        <div style={{ fontSize: '0.9rem', color: '#94a3b8' }}>
+                          {Math.floor(match.gameDuration / 60)}m {match.gameDuration % 60}s
+                        </div>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
             )}
+
+            {/* Raw Data (for debugging) */}
+            <details style={{ marginTop: '2rem' }}>
+              <summary style={{ 
+                cursor: 'pointer', 
+                color: '#94a3b8', 
+                marginBottom: '1rem',
+                fontSize: '1.1rem',
+                fontWeight: '600'
+              }}>
+                🔍 View Raw Data (Debug)
+              </summary>
+              <div style={{
+                background: 'rgba(0, 0, 0, 0.3)',
+                padding: '1rem',
+                borderRadius: '8px',
+                overflow: 'auto',
+                maxHeight: '400px'
+              }}>
+                <pre style={{ 
+                  fontSize: '14px',
+                  color: '#e2e8f0',
+                  margin: 0,
+                  whiteSpace: 'pre-wrap'
+                }}>
+                  {JSON.stringify(playerData, null, 2)}
+                </pre>
+              </div>
+            </details>
           </div>
+        )}
+
+        {/* Instructions */}
+        <div style={{
+          marginTop: '2rem',
+          padding: '1.5rem',
+          background: 'rgba(59, 130, 246, 0.1)',
+          border: '1px solid rgba(59, 130, 246, 0.3)',
+          borderRadius: '12px',
+          color: '#93c5fd'
+        }}>
+          <h4 style={{ marginBottom: '1rem', color: '#60a5fa' }}>How to use:</h4>
+          <ol style={{ margin: 0, paddingLeft: '1.5rem', lineHeight: '1.6' }}>
+            <li><strong>Search:</strong> Looks for existing data in the database</li>
+            <li><strong>Update from API:</strong> Fetches fresh data from Riot Games API</li>
+            <li>Use Riot ID format: <code style={{ background: 'rgba(0,0,0,0.3)', padding: '2px 6px', borderRadius: '4px' }}>GameName#TagLine</code></li>
+            <li>Example: <code style={{ background: 'rgba(0,0,0,0.3)', padding: '2px 6px', borderRadius: '4px' }}>Faker#KR1</code></li>
+          </ol>
         </div>
-      )}
+      </div>
     </div>
   );
 };
